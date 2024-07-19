@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useStore } from "@/Store/Store";
 import { toBlob, toPng, toCanvas } from "html-to-image";
 import { cn } from "@/lib/utils";
+import { toast } from "react-hot-toast";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -30,68 +31,88 @@ export type ExportButtonProps = {
 };
 
 const ExportButton = ({ targetRef }: ExportButtonProps) => {
-  const { title } = useStore((state) => ({ title: state.title }));
+  const  title  = useStore((state) => state.title);
   const [size, setSize] = useState<number>(2);
 
   const copyImage = async () => {
-    const imgBlob = await toBlob(targetRef.current as HTMLElement, {
-      pixelRatio: size,
-    });
-    const img = new ClipboardItem({ "image/png": imgBlob });
-    navigator.clipboard.write([img]);
+    try {
+      const imgBlob = await toBlob(targetRef.current as HTMLElement, {
+        pixelRatio: size,
+      });
+      await navigator.clipboard.write([
+        new ClipboardItem({
+          "image/png": imgBlob as Blob,
+        }),
+      ]);
+      toast.success("Image copied to clipboard");
+    } catch (error) {
+      toast.error("Failed to copy image");
+    }
   };
 
   const copyLink = () => {
-    const state = useStore.getState();
-    const queryParams = new URLSearchParams(state as any).toString();
-    navigator.clipboard.writeText(`${location.href}?${queryParams}`);
+    try {
+      const state = useStore.getState();
+      const queryParams = new URLSearchParams(state as any).toString();
+      navigator.clipboard.writeText(`${location.href}?${queryParams}`);
+      toast.success("Link copied to clipboard", { duration: 3000 });
+    } catch (error) {
+      toast.error("Failed to copy link", { duration: 3000 });
+    }
   };
 
   const saveImage = async (name: string, format: "PNG" | "SVG" | "WEBP") => {
-    let fileName: string;
-    let imageUrl: string;
-    let canvas: HTMLCanvasElement;
+    try {
+      let fileName, imageUrl: string;
+      let canvas: HTMLCanvasElement;
+      console.log(name);
+      const options = { pixelRatio: size };
 
-    const options = { pixelRatio: size };
+      switch (format) {
+        case "PNG":
+        case "SVG":
+          imageUrl = await toPng(targetRef.current as HTMLElement, options);
+          fileName = `${name}_${size}x.${format.toLowerCase()}`;
+          break;
+        case "WEBP":
+          canvas = await toCanvas(targetRef.current as HTMLElement, options);
+          imageUrl = canvas.toDataURL("image/webp");
+          fileName = `${name}_${size}x.webp`;
+          break;
+        default:
+          return;
+      }
 
-    switch (format) {
-      case "PNG":
-      case "SVG":
-        imageUrl = await toPng(targetRef.current as HTMLElement, options);
-        fileName = `${name}_${size}x.${format.toLowerCase()}`;
-        break;
-      case "WEBP":
-        canvas = await toCanvas(targetRef.current as HTMLElement, options);
-        imageUrl = canvas.toDataURL("image/webp");
-        fileName = `${name}_${size}x.webp`;
-        break;
-      default:
-        return;
+      const a = document.createElement("a");
+      a.href = imageUrl;
+      a.download = fileName;
+      a.click();
+      toast.success(`Image saved as ${fileName}`, { duration: 3000 });
+    } catch (error) {
+      toast.error("Failed to save image", { duration: 3000 });
     }
-
-    const a = document.createElement("a");
-    a.href = imageUrl;
-    a.download = fileName;
-    a.click();
   };
 
   return (
     <DropdownMenu>
       <div>
         <Button
+          size="sm"
           className={cn(
-            "hover:bg-red-900/63 box-border gap-x-1.5 rounded-l-md rounded-r-none border-[1px] border-red-900/70 bg-red-900/35 font-semibold text-red-500",
+            "box-border gap-x-1.5 rounded-l-md rounded-r-none border-[1px] border-red-900/70 bg-red-900/35 font-semibold text-red-500 hover:bg-red-900/63",
           )}
           variant="secondary"
           onClick={() => saveImage(title, "PNG")}
         >
           <DownloadIcon />
-          Export Image
+          <span>Export</span>
+          <span className="hidden md:block">Image</span>
         </Button>
         <DropdownMenuTrigger asChild>
           <Button
+            size="sm"
             className={cn(
-              "border-red-900/63 hover:bg-red-900/63 box-border gap-x-1.5 rounded-l-none border-b-[1px] border-r-[1px] border-t-[1px] bg-red-900/35 text-red-500",
+              "box-border gap-x-1.5 rounded-l-none border-b-[1px] border-r-[1px] border-t-[1px] border-red-900/63 bg-red-900/35 text-red-500 hover:bg-red-900/63",
             )}
             variant="secondary"
           >

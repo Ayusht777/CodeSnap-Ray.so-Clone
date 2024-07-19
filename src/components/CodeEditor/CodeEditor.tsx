@@ -6,7 +6,6 @@ import hljs from "highlight.js";
 import { useStore } from "@/Store/Store";
 import React, { useEffect } from "react";
 
-
 const CodeEditor = () => {
   const {
     darkMode,
@@ -17,6 +16,7 @@ const CodeEditor = () => {
     fontSize,
     autoDetectLanguage,
   } = useStore((state) => state);
+  console.log(title)
   useEffect(() => {
     const randomCodeSnippet =
       codeSnippets[Math.floor(Math.random() * codeSnippets.length)];
@@ -36,7 +36,7 @@ const CodeEditor = () => {
   return (
     <div
       className={cn(
-        "min-w-[400px] rounded-lg border-2 shadow-2xl",
+        "min-w-[380px] rounded-lg border-2 shadow-2xl",
         darkMode
           ? "border-gray-600/40 bg-black/75"
           : "border-gray-200/40 bg-white/75",
@@ -52,6 +52,7 @@ const CodeEditor = () => {
           <input
             type="text"
             value={title}
+            placeholder={title}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               useStore.setState({ title: e.target.value })
             }
@@ -91,7 +92,6 @@ const CodeEditor = () => {
           }}
         />
       </div>
-
     </div>
   );
 };

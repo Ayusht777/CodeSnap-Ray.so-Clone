@@ -16,11 +16,13 @@ type Font = {
 type Fonts = {
   [key: string]: Font;
 };
- type CodeSnippets = {
+type CodeSnippets = {
   language: string;
   code: string;
- }
-
+};
+type FontSize = {
+  [key: string]: number;
+};
 export const languages: Language = {
   bash: "Bash",
   c: "C",
@@ -39,7 +41,8 @@ export const languages: Language = {
   haskell: "Haskell",
   html: "HTML",
   java: "Java",
-  javascript: "JavaScript/JSX",
+  javascript: "JavaScript",
+  jsx: "jsx",
   json: "JSON",
   kotlin: "Kotlin",
   lisp: "Lisp",
@@ -59,7 +62,8 @@ export const languages: Language = {
   sql: "SQL",
   swift: "Swift",
   toml: "TOML",
-  typescript: "TypeScript/TSX",
+  typescript: "TypeScript",
+  tsx: "tsx",
   xml: "XML",
   yaml: "YAML",
 };
@@ -177,7 +181,7 @@ export const fonts: Fonts = {
   },
 };
 
-export const codeSnippets:CodeSnippets[] = [
+export const codeSnippets: CodeSnippets[] = [
   {
     language: "python",
     code: "def is_prime(n):\n  if n <= 1:\n    return False\n  for i in range(2, int(n ** 0.5) + 1):\n    if n % i == 0:\n      return False\n  return True",
@@ -219,3 +223,11 @@ export const codeSnippets:CodeSnippets[] = [
     code: 'fn main() {\n  let mut count = 0;\n  loop {\n    println!("Count: {}", count);\n    count += 1;\n    if count > 5 {\n      break;\n    }\n  }\n}',
   },
 ];
+
+export const fontSize: FontSize = {
+  small: 12,
+  medium: 14,
+  large: 16,
+  extraLarge: 18,
+  huge: 20,
+};

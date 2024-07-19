@@ -3,19 +3,34 @@ import CodeEditor from "@/components/CodeEditor/CodeEditor";
 import { useStore } from "@/Store/Store";
 import { themes, fonts } from "@/Option";
 import { cn } from "./lib/utils";
-import { useRef } from "react";
-import { Card } from "@/components/ui/card";
+import { useRef, useState } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import ThemeSelection from "@/components/Controller/ThemeSelection";
+import LanguageSelection from "@/components/Controller/LanguageSelection";
+import FontSelection from "@/components/Controller/FontSelection";
+import FontSizeSelection from "@/components/Controller/FontSizeSelection";
+import PaddingGroupButton from "@/components/Controller/PaddingGroupButton";
+import BackgroundSwitch from "@/components/Controller/BackgroundSwitch";
+import DarkModeSwitch from "@/components/Controller/DarkModeSwitch";
+import WidthMeasurement from "@/components/WidthMeasurement";
+import { Button } from "@/components/ui/button";
+import { Resizable } from "re-resizable";
+import { CrossCircledIcon } from "@radix-ui/react-icons";
+
 function App() {
   const EditorWrapperRef = useRef<HTMLDivElement | null>(null);
+  const [width, setWidth] = useState<number | "auto">("auto");
+  const [showWidth, setShowWidth] = useState<boolean>(false);
   const { currentTheme, padding, fontStyle, showBackground } = useStore(
     (state) => state,
   );
+
   return (
-    <div className="dark relative flex min-h-dvh w-full flex-col items-center justify-start bg-neutral-950 text-white">
-      <header className="w-full">
-        <Navbar targetRef={EditorWrapperRef} />
-      </header>
-      <main className="flex h-full w-full items-center justify-center">
+    <div className="dark flex min-h-dvh w-full flex-col items-center justify-start bg-neutral-950 text-white">
+      <main className="flex h-full w-full flex-1 flex-col items-center">
+        <header className="w-full">
+          <Navbar targetRef={EditorWrapperRef} />
+        </header>
         <link
           rel="stylesheet"
           href={themes?.[currentTheme].theme}
@@ -26,21 +41,81 @@ function App() {
           href={fonts[fontStyle]?.src}
           crossOrigin="anonymous"
         />
-        <div
-          className={cn(
-            "mb-2 overflow-hidden transition-all ease-out",
-            showBackground
-              ? themes[currentTheme].background
-              : "ring ring-neutral-950/50",
-          )}
-          style={{
-            padding: padding,
-          }}
-          ref={EditorWrapperRef}
-        >
-          <CodeEditor />
+        <div className="flex w-full flex-1 items-center justify-center overflow-hidden">
+          <Resizable
+            enable={{ left: true, right: true }}
+            minWidth={padding * 2 + 400}
+            maxWidth={1024}
+            size={{ width: width === "auto" ? "380px" : width, height: "auto" }}
+            onResize={(_event, _, elementRef) => {
+              setWidth(elementRef.offsetWidth);
+              setShowWidth(true);
+            }}
+            onResizeStop={() => {
+              setTimeout(() => setShowWidth(false), 1000);
+            }}
+         
+            handleComponent={{
+              left: (
+                <div className="absolute left-0 bottom-[calc(50%+5%)] size-2  cursor-col-resize rounded-full bg-white" />
+              ),
+              right: (
+                <div className="absolute right-0 bottom-[calc(50%+5%)] size-2  cursor-col-resize rounded-full bg-white" />
+              ),
+            }}
+          >
+            <div
+              className={cn(
+                "relative overflow-hidden transition-all ease-out",
+
+                showBackground
+                  ? themes[currentTheme].background
+                  : "ring ring-neutral-950/50",
+              )}
+              style={{
+                padding: padding,
+              }}
+              ref={EditorWrapperRef}
+            >
+              <CodeEditor />
+            </div>
+
+            <WidthMeasurement showWidth={showWidth} width={width} />
+            <div
+              className={cn(
+                "mx-auto -mt-4 w-fit transition-opacity",
+                showWidth || width === "auto"
+                  ? "opacity-0 invisible"
+                  : "opacity-100 visible",
+              )}
+            >
+              <Button
+                size="sm"
+                onClick={() => {
+                  setWidth("auto");
+                  setShowWidth(false);
+                }}
+                variant={"outline"}
+                className={cn("flex gap-x-1 items-center")}
+              >
+                <CrossCircledIcon />
+                Reset width
+              </Button>
+            </div>
+          </Resizable>
         </div>
-        <Card className="fixed bottom-16 mx-6 bg-neutral-900/90 px-8 py-6 backdrop-blur"></Card>
+
+        <Card className="fixed bottom-0 z-10 w-full overflow-x-auto scroll-smooth rounded-none bg-neutral-900/90 px-1 py-1.5 backdrop-blur [-ms-overflow-style:'none'] [scrollbar-width:'none'] md:w-auto md:rounded-xl md:rounded-b-none md:px-6 md:py-3.5 [&::-webkit-scrollbar]:hidden">
+          <CardContent className="flex gap-x-3 py-3 md:gap-6 md:py-0">
+            <ThemeSelection />
+            <LanguageSelection />
+            <FontSelection />
+            <FontSizeSelection />
+            <PaddingGroupButton />
+            <BackgroundSwitch />
+            <DarkModeSwitch />
+          </CardContent>
+        </Card>
       </main>
     </div>
   );
