@@ -19,7 +19,7 @@ const LanguageSelection = () => {
       ? useStore.setState({ autoDetectLanguage: true, Language: "plaintext" })
       : useStore.setState({
           autoDetectLanguage: false,
-          Language: selectedLanguage,
+          Language: selectedLanguage.toLocaleLowerCase(),
         });
   };
 
@@ -28,7 +28,7 @@ const LanguageSelection = () => {
       <label className="mb-2 block text-xs font-medium text-neutral-400">
         Language
       </label>
-      <Select value={language} onValueChange={handleChange}>
+      <Select value={language.toLocaleLowerCase()} onValueChange={handleChange}>
         <SelectTrigger className="flex w-36 items-center justify-between">
           <SelectValue>
             <div className="flex items-center gap-x-2">

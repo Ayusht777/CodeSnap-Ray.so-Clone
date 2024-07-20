@@ -16,7 +16,7 @@ const CodeEditor = () => {
     fontSize,
     autoDetectLanguage,
   } = useStore((state) => state);
- 
+
   useEffect(() => {
     const randomCodeSnippet =
       codeSnippets[Math.floor(Math.random() * codeSnippets.length)];
@@ -29,7 +29,8 @@ const CodeEditor = () => {
   useEffect(() => {
     if (autoDetectLanguage) {
       const { language } = flourite(code, { noUnknown: true });
-      useStore.setState({ Language: language.toLowerCase() || "plaintext" });
+      const detectedLanguage = language.toLowerCase();
+      useStore.setState({ Language: detectedLanguage || "plaintext" });
     }
   }, [autoDetectLanguage, code]);
 
@@ -78,14 +79,13 @@ const CodeEditor = () => {
           value={code}
           onValueChange={(code) => useStore.setState({ code })}
           highlight={(code) =>
-            hljs.highlight(code, { language: Language || "plaintext" }).value
+            hljs.highlight(code, { language: Language.toLowerCase() || "plaintext" }).value
           }
           style={{
             fontFamily: fonts[fontStyle]?.name,
             fontSize: fontSize,
           }}
           textareaClassName="focus:outline-none"
-          
         />
       </div>
     </div>

@@ -18,7 +18,6 @@ import { Button } from "@/components/ui/button";
 import { Resizable } from "re-resizable";
 import { CrossCircledIcon } from "@radix-ui/react-icons";
 
-
 function App() {
   const EditorWrapperRef = useRef<HTMLDivElement | null>(null);
   const [width, setWidth] = useState<number | "auto">("auto");
@@ -26,9 +25,6 @@ function App() {
   const { currentTheme, padding, fontStyle, showBackground } = useStore(
     (state) => state,
   );
-
-
- 
 
   return (
     <div className="dark flex min-h-dvh w-full flex-col items-center justify-start bg-neutral-950 text-white">
@@ -49,7 +45,7 @@ function App() {
         <div className="flex w-full flex-1 items-center justify-center overflow-hidden">
           <Resizable
             enable={{ left: true, right: true }}
-            minWidth={padding * 2 + 400}
+            minWidth={padding * 2 + 380}
             maxWidth={1024}
             size={{ width: width === "auto" ? "380px" : width, height: "auto" }}
             onResize={(_event, _, elementRef) => {
