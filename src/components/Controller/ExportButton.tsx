@@ -65,7 +65,7 @@ const ExportButton = ({ targetRef }: ExportButtonProps) => {
     try {
       let fileName, imageUrl: string;
       let canvas: HTMLCanvasElement;
-      console.log(name);
+    
       const options = { pixelRatio: size };
 
       switch (format) {

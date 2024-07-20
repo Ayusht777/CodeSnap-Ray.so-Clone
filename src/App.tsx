@@ -13,9 +13,11 @@ import PaddingGroupButton from "@/components/Controller/PaddingGroupButton";
 import BackgroundSwitch from "@/components/Controller/BackgroundSwitch";
 import DarkModeSwitch from "@/components/Controller/DarkModeSwitch";
 import WidthMeasurement from "@/components/WidthMeasurement";
+import RandomVariantButton from "@/components/RandomVariantButton";
 import { Button } from "@/components/ui/button";
 import { Resizable } from "re-resizable";
 import { CrossCircledIcon } from "@radix-ui/react-icons";
+
 
 function App() {
   const EditorWrapperRef = useRef<HTMLDivElement | null>(null);
@@ -24,6 +26,9 @@ function App() {
   const { currentTheme, padding, fontStyle, showBackground } = useStore(
     (state) => state,
   );
+
+
+ 
 
   return (
     <div className="dark flex min-h-dvh w-full flex-col items-center justify-start bg-neutral-950 text-white">
@@ -54,13 +59,12 @@ function App() {
             onResizeStop={() => {
               setTimeout(() => setShowWidth(false), 1000);
             }}
-         
             handleComponent={{
               left: (
-                <div className="absolute left-0 bottom-[calc(50%+5%)] size-2  cursor-col-resize rounded-full bg-white" />
+                <div className="absolute bottom-[calc(50%+5%)] left-0 size-2 cursor-col-resize rounded-full bg-white" />
               ),
               right: (
-                <div className="absolute right-0 bottom-[calc(50%+5%)] size-2  cursor-col-resize rounded-full bg-white" />
+                <div className="absolute bottom-[calc(50%+5%)] right-0 size-2 cursor-col-resize rounded-full bg-white" />
               ),
             }}
           >
@@ -96,7 +100,7 @@ function App() {
                   setShowWidth(false);
                 }}
                 variant={"outline"}
-                className={cn("flex gap-x-1 items-center")}
+                className={cn("flex items-center gap-x-1")}
               >
                 <CrossCircledIcon />
                 Reset width
@@ -107,6 +111,7 @@ function App() {
 
         <Card className="fixed bottom-0 z-10 w-full overflow-x-auto scroll-smooth rounded-none bg-neutral-900/90 px-1 py-1.5 backdrop-blur [-ms-overflow-style:'none'] [scrollbar-width:'none'] md:w-auto md:rounded-xl md:rounded-b-none md:px-6 md:py-3.5 [&::-webkit-scrollbar]:hidden">
           <CardContent className="flex gap-x-3 py-3 md:gap-6 md:py-0">
+            <RandomVariantButton />
             <ThemeSelection />
             <LanguageSelection />
             <FontSelection />

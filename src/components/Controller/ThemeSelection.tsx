@@ -7,19 +7,31 @@ import {
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 import { themes } from "@/Option";
-import {} from "@radix-ui/react-select";
 import { useStore } from "@/Store/Store";
+import { useHotkeys } from "react-hotkeys-hook";
+import { useCallback } from "react";
+
 const ThemeSelection = () => {
   const currentTheme = useStore((state) => state.currentTheme);
+  const themeNames = Object.keys(themes);
+  const setCurrentTheme = useCallback(
+    (theme: string) => useStore.setState({ currentTheme: theme }),
+    [],
+  );
+  const traverseTheme = useCallback(() => {
+    const currentIndex = themeNames.indexOf(currentTheme);
+    const nextIndex = (currentIndex + 1) % themeNames.length;
+    setCurrentTheme(themeNames[nextIndex]);
+  }, [currentTheme, setCurrentTheme, themeNames]);
+
+  useHotkeys("t", traverseTheme, { preventDefault: true });
+
   return (
     <div>
       <label className="mb-2 block text-xs font-medium text-neutral-400">
         Theme
       </label>
-      <Select
-        value={currentTheme}
-        onValueChange={(currentTheme) => useStore.setState({ currentTheme })}
-      >
+      <Select value={currentTheme} onValueChange={setCurrentTheme}>
         <SelectTrigger className="w-32">
           <SelectValue placeholder="Select Theme"></SelectValue>
         </SelectTrigger>

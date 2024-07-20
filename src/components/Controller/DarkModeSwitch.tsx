@@ -1,8 +1,16 @@
 import { Switch } from "@/components/ui/switch";
 import { useStore } from "@/Store/Store";
-
+import { useHotkeys } from "react-hotkeys-hook";
+import { useCallback } from "react";
 const DarkModeSwitch = () => {
   const darkMode = useStore((state) => state.darkMode);
+  
+  const toggleDarkMode = useCallback(() => {
+    useStore.setState((state) => ({ darkMode: !state.darkMode }));
+  }, []);
+
+  useHotkeys("d", toggleDarkMode, { preventDefault: true });
+
 
   return (
     <div className="flex flex-col items-start ">

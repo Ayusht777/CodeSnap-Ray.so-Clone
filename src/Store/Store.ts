@@ -17,11 +17,10 @@ type StoreState = {
 export const useStore = create<StoreState>()(
   persist(
     (_set) => ({
-      //_to make as undefined
       code: "",
       title: "Untitled",
       Language: "plaintext",
-      currentTheme: "hyper",
+      currentTheme: "crimson",
       fontStyle: "jetBrainsMono",
       padding: 16,
       showBackground: true,

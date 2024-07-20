@@ -14,7 +14,7 @@ const LanguageSelection = () => {
   const language = useStore((state) => state.Language);
   const autoDetectLanguage = useStore((state) => state.autoDetectLanguage);
 
-  const handleChange = (selectedLanguage:string) => {
+  const handleChange = (selectedLanguage: string) => {
     selectedLanguage === "auto-detect"
       ? useStore.setState({ autoDetectLanguage: true, Language: "plaintext" })
       : useStore.setState({
@@ -23,7 +23,6 @@ const LanguageSelection = () => {
         });
   };
 
-  console.log(language, autoDetectLanguage);
   return (
     <div>
       <label className="mb-2 block text-xs font-medium text-neutral-400">

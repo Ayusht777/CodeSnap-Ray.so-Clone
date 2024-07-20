@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import {
   Select,
   SelectTrigger,
@@ -8,10 +9,21 @@ import {
 import { cn } from "@/lib/utils";
 import { fontSize } from "@/Option";
 import { useStore } from "@/Store/Store";
+import { useHotkeys } from "react-hotkeys-hook";
 
 const FontSizeSelection = () => {
   const currentFontSize = useStore((state) => state.fontSize);
-  console.log(currentFontSize);
+
+  const fontSizes = Object.values(fontSize);
+  const currentIndex = fontSizes.indexOf(currentFontSize);
+
+  const traverseFontSize = useCallback(() => {
+    const newIndex = (currentIndex + 1) % fontSizes.length;
+    useStore.setState({ fontSize: fontSizes[newIndex] });
+  }, [currentIndex, fontSizes]);
+
+  useHotkeys('s', traverseFontSize, { preventDefault: true });
+
   return (
     <div>
       <label className="mb-2 block text-xs font-medium text-neutral-400">

@@ -16,7 +16,7 @@ const CodeEditor = () => {
     fontSize,
     autoDetectLanguage,
   } = useStore((state) => state);
-  console.log(title)
+ 
   useEffect(() => {
     const randomCodeSnippet =
       codeSnippets[Math.floor(Math.random() * codeSnippets.length)];
@@ -85,11 +85,7 @@ const CodeEditor = () => {
             fontSize: fontSize,
           }}
           textareaClassName="focus:outline-none"
-          onClick={(e) => {
-            if (e.target instanceof HTMLTextAreaElement) {
-              e.target.select();
-            }
-          }}
+          
         />
       </div>
     </div>

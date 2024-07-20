@@ -42,7 +42,6 @@ export const languages: Language = {
   html: "HTML",
   java: "Java",
   javascript: "JavaScript",
-  jsx: "jsx",
   json: "JSON",
   kotlin: "Kotlin",
   lisp: "Lisp",
@@ -63,62 +62,66 @@ export const languages: Language = {
   swift: "Swift",
   toml: "TOML",
   typescript: "TypeScript",
-  tsx: "tsx",
   xml: "XML",
   yaml: "YAML",
 };
 
 export const themes: Themes = {
-  hyper: {
-    background: "bg-gradient-to-br from-fuchsia-500 via-red-600 to-orange-400",
+  crimson: {
+    background: "bg-gradient-to-br from-red-400 to-red-800",
     theme:
-      "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css",
+      "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/styles/atom-one-dark.min.css",
   },
-  oceanic: {
-    background: "bg-gradient-to-br from-green-300 via-blue-500 to-purple-600",
+  raindrop: {
+    background: "bg-gradient-to-br from-blue-300 to-blue-700",
     theme:
-      "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/base16/material-darker.min.css",
+      "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/styles/base16/material-darker.min.css",
   },
   candy: {
-    background: "bg-gradient-to-br from-pink-300 via-purple-300 to-indigo-400",
+    background: "bg-gradient-to-br to-purple-400 from-pink-300",
     theme:
-      "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/base16/chalk.min.css",
+      "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/styles/base16/chalk.min.css",
   },
-  sublime: {
-    background: "bg-gradient-to-br from-rose-400 via-fuchsia-500 to-indigo-500",
+  breeze: {
+    background: "bg-gradient-to-br from-pink-500 to-indigo-600",
     theme:
-      "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css",
+      "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/styles/github-dark.min.css",
   },
-  horizon: {
-    background: "bg-gradient-to-br from-orange-500 to-yellow-300",
+  sunset: {
+    background: "bg-gradient-to-br from-amber-200 to-orange-500",
     theme:
-      "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/monokai-sublime.min.css",
+      "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/styles/monokai-sublime.min.css",
   },
-  coral: {
-    background: "bg-gradient-to-br from-blue-400 to-emerald-400",
+  midnight: {
+    background: "bg-gradient-to-br from-teal-400 to-slate-900",
     theme:
-      "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/tokyo-night-dark.min.css",
+      "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/styles/tokyo-night-dark.min.css",
   },
-  peach: {
-    background: "bg-gradient-to-br from-rose-400 to-orange-300",
+  sand: {
+    background: "bg-gradient-to-br   from-[#eecbba] to-[#af8856]", // no preset class similar to this color in tailwind css
     theme:
-      "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/base16/zenburn.min.css",
+      "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/styles/base16/zenburn.min.css",
   },
   flamingo: {
     background: "bg-gradient-to-br from-pink-400 to-pink-600",
     theme:
-      "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/panda-syntax-dark.min.css",
+      "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/styles/panda-syntax-dark.min.css",
   },
-  gotham: {
-    background: "bg-gradient-to-br from-gray-700 via-gray-900 to-black",
+  mono: {
+    background: "bg-gradient-to-br from-neutral-700 to-neutral-900",
 
     theme:
-      "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/base16/black-metal-dark-funeral.min.css",
+      "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/styles/base16/black-metal-dark-funeral.min.css",
   },
   ice: {
     background: "bg-gradient-to-br from-rose-100 to-teal-100",
     theme:
-      "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/base16/ashes.min.css",
+      "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/styles/base16/ashes.min.css",
+  },
+  forest: {
+    background: "bg-gradient-to-br  from-[#4c7153] to-[#213223]",
+    theme:
+      "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.10.0/styles/base16/gruvbox-dark-medium.min.css",
   },
 };
 
