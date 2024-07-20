@@ -7,6 +7,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 
 import { cn } from "@/lib/utils";
 import fav from "@/assets/favicon.png";
@@ -16,7 +17,30 @@ import {
   InfoCircledIcon,
 } from "@radix-ui/react-icons";
 
+const KeyBinding = ({ description, keyChar }) => {
+  return (
+    <DialogDescription>
+      <div className="flex justify-between">
+        <div>{description}</div>
+        <div className="flex size-7 items-center justify-center rounded-md bg-neutral-800">
+          {keyChar}
+        </div>
+      </div>
+    </DialogDescription>
+  );
+};
+
 const AboutUsButton = () => {
+  const keyBindingsData = [
+    { description: "Open random themes", keyChar: "R" },
+    { description: "Change themes", keyChar: "T" },
+    { description: "Change font style", keyChar: "F" },
+    { description: "Change font size", keyChar: "S" },
+    { description: "Change padding", keyChar: "P" },
+    { description: "Toggle background", keyChar: "B" },
+    { description: "Toggle dark mode", keyChar: "D" },
+  ];
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -36,9 +60,9 @@ const AboutUsButton = () => {
           "dark flex max-w-3xl gap-8 bg-neutral-900/90 [&>button]:text-gray-400 [&>button]:hover:text-gray-400",
         )}
       >
-        <div className="flex flex-1 flex-col gap-3 text-[13px] leading-relaxed [&>p]:text-gray-400">
+        <div className="flex flex-1 flex-col gap-3 leading-relaxed [&>p]:text-[13px] [&>p]:text-white/70">
           <DialogHeader>
-            <DialogTitle className="text-gray-200">About</DialogTitle>
+            <DialogTitle className="text-base text-gray-200">About</DialogTitle>
           </DialogHeader>
           <DialogDescription>
             Ray.so Clone is a Code to Image tool inspired by Raycast's (Ray.so),
@@ -58,7 +82,7 @@ const AboutUsButton = () => {
             You can also change the image resolution in the export menu.
           </DialogDescription>
           <DialogHeader>
-            <DialogTitle className="text-gray-200">
+            <DialogTitle className="text-base text-gray-200">
               Inspired by Ray.so
             </DialogTitle>
           </DialogHeader>
@@ -84,19 +108,21 @@ const AboutUsButton = () => {
             .
           </DialogDescription>
 
-          <div className="mt-48 pt-2">
+          <div className="mt-32 pt-2">
             <span className="pointer-events-none relative -bottom-4 -left-7 opacity-30"></span>
             <div className="mt-2 flex items-center justify-between gap-2">
-              <a
-                href="/"
-                className="text-gray-12 group flex items-center gap-1.5"
-              >
+              <a href="/" className="group flex items-center gap-1.5">
                 <img src={fav} alt="" className="size-4" />
                 <span className="text-[13px] font-semibold text-gray-200">
                   Made by
-                  <span className="underline-offset-3 underline decoration-red-500 decoration-wavy decoration-[1.5px]">
+                  <Badge
+                    variant="default"
+                    className={cn(
+                      "ml-2 rounded-full bg-red-900/35 text-red-500 hover:bg-red-900/63",
+                    )}
+                  >
                     Ayush Talesara
-                  </span>
+                  </Badge>
                 </span>
               </a>
               <div className="flex gap-3">
@@ -115,6 +141,23 @@ const AboutUsButton = () => {
               </div>
             </div>
           </div>
+        </div>
+        <div className="rounded-lg border-[1px] border-neutral-800"></div>
+
+        <div className="flex flex-1 flex-col gap-3 text-[13px] leading-relaxed [&>p]:text-gray-400">
+          <DialogHeader>
+            <DialogTitle className="text-base text-gray-200">
+              Shortcuts
+            </DialogTitle>
+          </DialogHeader>
+
+          {keyBindingsData.map((binding, index) => (
+            <KeyBinding
+              key={index}
+              description={binding.description}
+              keyChar={binding.keyChar}
+            />
+          ))}
         </div>
       </DialogContent>
     </Dialog>
