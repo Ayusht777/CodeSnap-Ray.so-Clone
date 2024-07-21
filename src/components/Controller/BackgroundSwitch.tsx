@@ -25,9 +25,6 @@ const BackgroundSwitch = () => {
         checked={showBackground}
         onCheckedChange={toggleBackground}
         className="my-1.5 data-[state=checked]:bg-blue-300 [&>span]:data-[state=checked]:bg-white"
-        aria-label="Toggle background"
-        aria-checked={showBackground}
-        role="switch"
       />
     </div>
   );
