@@ -1,30 +1,65 @@
-# React + TypeScript + Vite
+# Ray.so-Clone
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A feature-rich code snippet beautifier and sharing tool, inspired by Ray.so.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Syntax highlighting for multiple programming languages
+- Customizable themes and backgrounds
+- Adjustable font styles and sizes
+- Toggle-able background
+- Dark mode support
+- Auto-detect language option
+- Responsive design
+- Keyboard shortcuts for quick actions
+- Local storage persistence for user preferences
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- React
+- TypeScript
+- Vite
+- Tailwind CSS
+- Zustand (for state management)
+- React Hot Keys Hook
+- Radix UI components
 
-- Configure the top-level `parserOptions` property like this:
+## Libraries and Tools
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json', './tsconfig.app.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+- highlight.js (for syntax highlighting)
+- clsx and tailwind-merge (for conditional CSS classes)
+- ESLint (for code linting)
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Running the Project Locally
+
+1. Clone the repository: https://github.com/yourusername/ray-so-clone.git
+
+2. Navigate to the project directory:
+
+3. Install dependencies:
+
+4. Start the development server:
+
+5. Open your browser and visit `http://localhost:5173`
+
+## Contributing
+
+We welcome contributions to Ray.so-Clone! Here's how you can contribute:
+
+1. Fork the repository
+2. Create a new branch: `git checkout -b feature/your-feature-name`
+3. Make your changes and commit them: `git commit -m 'Add some feature'`
+4. Push to the branch: `git push origin feature/your-feature-name`
+5. Submit a pull request
+
+Please ensure your code adheres to the project's coding standards and includes appropriate tests.
+
+## License
+
+[MIT License](LICENSE)
+
+## Acknowledgements
+
+- Inspired by [Ray.so](https://ray.so)
+- Built with [React](https://reactjs.org/) and [Vite](https://vitejs.dev/)
+- Styled with [Tailwind CSS](https://tailwindcss.com/)
