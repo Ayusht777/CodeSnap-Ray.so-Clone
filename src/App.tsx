@@ -110,8 +110,8 @@ function App() {
           </Resizable>
         </div>
 
-        <Card className="fixed bottom-0 z-10 w-full overflow-x-auto scroll-smooth rounded-none bg-neutral-900/90 md:px-6 px-2.5 py-4 backdrop-blur [-ms-overflow-style:'none'] [scrollbar-width:'none'] md:w-auto md:rounded-xl md:rounded-b-none [&::-webkit-scrollbar]:hidden">
-          <CardContent className="flex gap-6 py-0 ">
+        <Card className="fixed bottom-0 z-10 w-full overflow-x-auto scroll-smooth rounded-none bg-neutral-900/90 px-2.5 py-4 backdrop-blur [-ms-overflow-style:'none'] [scrollbar-width:'none'] md:w-auto md:rounded-xl md:rounded-b-none md:px-6 [&::-webkit-scrollbar]:hidden">
+          <CardContent className="flex gap-6 py-0">
             <Suspense fallback={<div>Loading...</div>}>
               <RandomVariantButton />
             </Suspense>
