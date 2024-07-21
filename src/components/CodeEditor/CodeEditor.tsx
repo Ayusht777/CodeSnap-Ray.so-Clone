@@ -79,7 +79,9 @@ const CodeEditor = () => {
           value={code}
           onValueChange={(code) => useStore.setState({ code })}
           highlight={(code) =>
-            hljs.highlight(code, { language: Language.toLowerCase() || "plaintext" }).value
+            hljs.highlight(code, {
+              language: Language.toLowerCase() || "plaintext",
+            }).value
           }
           style={{
             fontFamily: fonts[fontStyle]?.name,

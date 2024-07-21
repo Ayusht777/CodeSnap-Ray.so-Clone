@@ -31,8 +31,12 @@ export type ExportButtonProps = {
 };
 
 const ExportButton = ({ targetRef }: ExportButtonProps) => {
-  const  title  = useStore((state) => state.title);
+  const title = useStore((state) => state.title);
   const [size, setSize] = useState<number>(2);
+
+  const handleError = (action: string) => {
+    toast.error(`Failed to ${action}`, { duration: 3000 });
+  };
 
   const copyImage = async () => {
     try {
@@ -40,13 +44,11 @@ const ExportButton = ({ targetRef }: ExportButtonProps) => {
         pixelRatio: size,
       });
       await navigator.clipboard.write([
-        new ClipboardItem({
-          "image/png": imgBlob as Blob,
-        }),
+        new ClipboardItem({ "image/png": imgBlob as Blob }),
       ]);
       toast.success("Image copied to clipboard");
     } catch (error) {
-      toast.error("Failed to copy image");
+      handleError("copy image");
     }
   };
 
@@ -57,31 +59,26 @@ const ExportButton = ({ targetRef }: ExportButtonProps) => {
       navigator.clipboard.writeText(`${location.href}?${queryParams}`);
       toast.success("Link copied to clipboard", { duration: 3000 });
     } catch (error) {
-      toast.error("Failed to copy link", { duration: 3000 });
+      handleError("copy link");
     }
   };
 
   const saveImage = async (name: string, format: "PNG" | "SVG" | "WEBP") => {
     try {
-      let fileName, imageUrl: string;
-      let canvas: HTMLCanvasElement;
-    
       const options = { pixelRatio: size };
+      let imageUrl: string;
 
-      switch (format) {
-        case "PNG":
-        case "SVG":
-          imageUrl = await toPng(targetRef.current as HTMLElement, options);
-          fileName = `${name}_${size}x.${format.toLowerCase()}`;
-          break;
-        case "WEBP":
-          canvas = await toCanvas(targetRef.current as HTMLElement, options);
-          imageUrl = canvas.toDataURL("image/webp");
-          fileName = `${name}_${size}x.webp`;
-          break;
-        default:
-          return;
+      if (format === "WEBP") {
+        const canvas = await toCanvas(
+          targetRef.current as HTMLElement,
+          options,
+        );
+        imageUrl = canvas.toDataURL("image/webp");
+      } else {
+        imageUrl = await toPng(targetRef.current as HTMLElement, options);
       }
+
+      const fileName: string = `${name}_${size}x.${format.toLowerCase()}`;
 
       const a = document.createElement("a");
       a.href = imageUrl;
@@ -89,9 +86,24 @@ const ExportButton = ({ targetRef }: ExportButtonProps) => {
       a.click();
       toast.success(`Image saved as ${fileName}`, { duration: 3000 });
     } catch (error) {
-      toast.error("Failed to save image", { duration: 3000 });
+      handleError("save image");
     }
   };
+
+  const renderSizeMenuItem = (sizeOption: number) => (
+    <DropdownMenuItem
+      onClick={() => setSize(sizeOption)}
+      className={cn(
+        "relative flex items-center gap-x-1.5 py-1.5 pl-8 pr-2",
+        size === sizeOption && `text-white`,
+      )}
+    >
+      <span className="absolute left-2 flex size-3.5 items-center justify-center">
+        {size === sizeOption && <DotFilledIcon />}
+      </span>
+      {sizeOption}x
+    </DropdownMenuItem>
+  );
 
   return (
     <DropdownMenu>
@@ -122,27 +134,16 @@ const ExportButton = ({ targetRef }: ExportButtonProps) => {
       </div>
 
       <DropdownMenuContent className={cn("dark mr-4 text-gray-400")}>
-        <DropdownMenuItem
-          className="gap-x-2"
-          onClick={() => saveImage(title, "PNG")}
-        >
-          <ImageIcon />
-          Save PNG
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          className="gap-x-2"
-          onClick={() => saveImage(title, "SVG")}
-        >
-          <ImageIcon />
-          Save SVG
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          className="gap-x-2"
-          onClick={() => saveImage(title, "WEBP")}
-        >
-          <ImageIcon />
-          Save WEBP
-        </DropdownMenuItem>
+        {["PNG", "SVG", "WEBP"].map((format) => (
+          <DropdownMenuItem
+            key={format}
+            className="gap-x-2"
+            onClick={() => saveImage(title, format as "PNG" | "SVG" | "WEBP")}
+          >
+            <ImageIcon />
+            Save {format}
+          </DropdownMenuItem>
+        ))}
         <DropdownMenuItem className="gap-x-2" onClick={copyImage}>
           <ClipboardIcon />
           Copy Image
@@ -161,42 +162,7 @@ const ExportButton = ({ targetRef }: ExportButtonProps) => {
             </DropdownMenuSubTrigger>
             <DropdownMenuPortal>
               <DropdownMenuSubContent className={cn("dark mr-2 text-gray-400")}>
-                <DropdownMenuItem
-                  onClick={() => setSize(2)}
-                  className={cn(
-                    "relative flex items-center gap-x-1.5 py-1.5 pl-8 pr-2",
-                    size === 2 && `text-white`,
-                  )}
-                >
-                  <span className="absolute left-2 flex size-3.5 items-center justify-center">
-                    {size === 2 && <DotFilledIcon />}
-                  </span>
-                  2x
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  onClick={() => setSize(4)}
-                  className={cn(
-                    "relative flex items-center gap-x-1.5 py-1.5 pl-8 pr-2",
-                    size === 4 && `text-white`,
-                  )}
-                >
-                  <span className="absolute left-2 flex size-3.5 items-center justify-center">
-                    {size === 4 && <DotFilledIcon />}
-                  </span>
-                  4x
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  onClick={() => setSize(6)}
-                  className={cn(
-                    "relative flex items-center gap-x-1.5 py-1.5 pl-8 pr-2",
-                    size === 6 && `text-white`,
-                  )}
-                >
-                  <span className="absolute left-2 flex size-3.5 items-center justify-center">
-                    {size === 6 && <DotFilledIcon />}
-                  </span>
-                  6x
-                </DropdownMenuItem>
+                {[2, 4, 6].map(renderSizeMenuItem)}
               </DropdownMenuSubContent>
             </DropdownMenuPortal>
           </DropdownMenuSub>
