@@ -57,8 +57,9 @@ CodeSnap is a feature-rich code snippet beautifier and sharing tool, inspired by
 ## Running the Project Locally
 
 1. Clone the repository:
-
-   ```bash https://github.com/Ayusht777/CodeSnap-Ray.so-Clone.git ```
+```
+   https://github.com/Ayusht777/CodeSnap-Ray.so-Clone.git
+```
    
 2 . Install dependencies:
   
@@ -79,10 +80,11 @@ pnpm i
    ```
    npm run dev
 ```
-   
 3. Open your browser and visit
 
-   ```bash http://localhost:5173 ```
+   ```
+   http://localhost:5173
+   ```
 
 ## Contributing
 
