@@ -12,8 +12,6 @@ CodeSnap is a feature-rich code snippet beautifier and sharing tool, inspired by
 
 </div>
 
-
-
 <!-- TEXT_SECTION:header:END -->
 
 ## Features
@@ -57,29 +55,33 @@ CodeSnap is a feature-rich code snippet beautifier and sharing tool, inspired by
 ## Running the Project Locally
 
 1. Clone the repository:
+
 ```
    https://github.com/Ayusht777/CodeSnap-Ray.so-Clone.git
 ```
-   
+
 2 . Install dependencies:
-  
-   ```
-pnpm i 
-   ```
-  or 
-       
-   ```
-   npm i
+
 ```
-   
-  or
-   ```
-   pnpm run dev
+pnpm i
 ```
-         
-   ```
-   npm run dev
+
+or
+
 ```
+npm i
+```
+
+or
+
+```
+pnpm run dev
+```
+
+```
+npm run dev
+```
+
 3. Open your browser and visit
 
    ```
