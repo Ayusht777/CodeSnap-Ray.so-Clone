@@ -1,10 +1,16 @@
-import Navbar from "@/components/Navbar/Navbar";
-import CodeEditor from "@/components/CodeEditor/CodeEditor";
+import { lazy, Suspense, useRef, useState } from "react";
 import { useStore } from "@/Store/Store";
 import { themes, fonts } from "@/Option";
 import { cn } from "./lib/utils";
-import { useRef, useState } from "react";
+import { Resizable } from "re-resizable";
+import { CrossCircledIcon } from "@radix-ui/react-icons";
+
+import Navbar from "@/components/Navbar/Navbar";
+import CodeEditor from "@/components/CodeEditor/CodeEditor";
 import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import WidthMeasurement from "@/components/WidthMeasurement";
+
 import ThemeSelection from "@/components/Controller/ThemeSelection";
 import LanguageSelection from "@/components/Controller/LanguageSelection";
 import FontSelection from "@/components/Controller/FontSelection";
@@ -12,11 +18,10 @@ import FontSizeSelection from "@/components/Controller/FontSizeSelection";
 import PaddingGroupButton from "@/components/Controller/PaddingGroupButton";
 import BackgroundSwitch from "@/components/Controller/BackgroundSwitch";
 import DarkModeSwitch from "@/components/Controller/DarkModeSwitch";
-import WidthMeasurement from "@/components/WidthMeasurement";
-import RandomVariantButton from "@/components/RandomVariantButton";
-import { Button } from "@/components/ui/button";
-import { Resizable } from "re-resizable";
-import { CrossCircledIcon } from "@radix-ui/react-icons";
+
+const RandomVariantButton = lazy(
+  () => import("@/components/RandomVariantButton"),
+);
 
 function App() {
   const EditorWrapperRef = useRef<HTMLDivElement | null>(null);
@@ -107,7 +112,9 @@ function App() {
 
         <Card className="fixed bottom-0 z-10 w-full overflow-x-auto scroll-smooth rounded-none bg-neutral-900/90 px-1 py-1.5 backdrop-blur [-ms-overflow-style:'none'] [scrollbar-width:'none'] md:w-auto md:rounded-xl md:rounded-b-none md:px-6 md:py-3.5 [&::-webkit-scrollbar]:hidden">
           <CardContent className="flex gap-x-3 py-3 md:gap-6 md:py-0">
-            <RandomVariantButton />
+            <Suspense fallback={<div>Loading...</div>}>
+              <RandomVariantButton />
+            </Suspense>
             <ThemeSelection />
             <LanguageSelection />
             <FontSelection />
