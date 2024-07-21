@@ -38,16 +38,14 @@ function App() {
           <Navbar targetRef={EditorWrapperRef} />
         </header>
         <link
-          rel="preload"
+          rel="stylesheet"
           href={themes?.[currentTheme].theme}
           crossOrigin="anonymous"
-          as="style"
         />
         <link
-          rel="preload"
+          rel="stylesheet"
           href={fonts[fontStyle]?.src}
           crossOrigin="anonymous"
-          as="style"
         />
         <div className="flex w-full flex-1 items-center justify-center overflow-hidden">
           <Resizable
