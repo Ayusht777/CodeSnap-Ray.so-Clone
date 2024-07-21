@@ -17,7 +17,11 @@ import {
   InfoCircledIcon,
 } from "@radix-ui/react-icons";
 
-const KeyBinding = ({ description, keyChar }) => {
+type KeyBindingProps = {
+  description: string;
+  keyChar: string;
+};
+const KeyBinding = ({ description, keyChar }: KeyBindingProps) => {
   return (
     <DialogDescription>
       <div className="flex justify-between">
