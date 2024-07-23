@@ -131,7 +131,7 @@ const AboutUsButton = () => {
               </a>
               <div className="flex gap-3">
                 <a
-                  href=""
+                  href="https://github.com/Ayusht777/CodeSnap-Ray.so-Clone"
                   className="text-neutral-400 transition-colors hover:text-neutral-300"
                 >
                   <GitHubLogoIcon />
