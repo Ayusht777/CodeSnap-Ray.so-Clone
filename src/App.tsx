@@ -1,4 +1,4 @@
-import { lazy, Suspense, useRef, useState } from "react";
+import { lazy, Suspense, useRef, useState, useEffect } from "react";
 import { useStore } from "@/Store/Store";
 import { themes, fonts } from "@/data/Option";
 import { cn } from "./lib/utils";
@@ -18,7 +18,7 @@ import FontSizeSelection from "@/components/Controller/FontSizeSelection";
 import PaddingGroupButton from "@/components/Controller/PaddingGroupButton";
 import BackgroundSwitch from "@/components/Controller/BackgroundSwitch";
 import DarkModeSwitch from "@/components/Controller/DarkModeSwitch";
-
+import SwipeIndicator from "@/components/SwipeIndicator";
 const RandomVariantButton = lazy(
   () => import("@/components/RandomVariantButton"),
 );
@@ -27,9 +27,19 @@ function App() {
   const EditorWrapperRef = useRef<HTMLDivElement | null>(null);
   const [width, setWidth] = useState<number | "auto">("auto");
   const [showWidth, setShowWidth] = useState<boolean>(false);
+  const [showSwipeIndicator, setShowSwipeIndicator] = useState<boolean>(true);
+
   const { currentTheme, padding, fontStyle, showBackground } = useStore(
     (state) => state,
   );
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowSwipeIndicator(false);
+    }, 10000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <div className="dark flex min-h-dvh w-full flex-col items-center justify-start bg-neutral-950 text-white">
@@ -108,6 +118,7 @@ function App() {
             </div>
           </Resizable>
         </div>
+        {showSwipeIndicator && <SwipeIndicator />}
 
         <Card className="fixed bottom-0 z-10 w-full overflow-x-auto scroll-smooth rounded-none bg-neutral-900/90 px-2.5 py-4 backdrop-blur [-ms-overflow-style:'none'] [scrollbar-width:'none'] md:w-auto md:rounded-xl md:rounded-b-none md:px-6 [&::-webkit-scrollbar]:hidden">
           <CardContent className="flex gap-6 py-0">
