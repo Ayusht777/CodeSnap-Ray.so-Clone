@@ -94,6 +94,17 @@ module.exports = {
       90: "0.9",
       95: "0.95",
     },
+
+    keyframes: {
+      slideRight: {
+        "0%": { transform: "translateX(0)" },
+        "100%": { transform: "translateX(60%)" },
+      },
+    },
+    animation: {
+      slideRight: "slideRight 1.5s linear infinite",
+    },
   },
+
   plugins: [require("tailwindcss-animate")],
 };
