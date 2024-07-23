@@ -18,7 +18,7 @@ CodeSnap is a feature-rich code snippet beautifier and sharing tool, inspired by
 
 - Syntax highlighting for 38+ programming languages
 - 11+ modern, visually appealing themes
-- 14+ monospaced font styles
+- 19+ monospaced font styles
 - Adjustable font sizes from small to huge
 - Toggleable background for versatile image generation
 - Dark mode support for reduced eye strain
