@@ -1,6 +1,6 @@
 import { lazy, Suspense, useRef, useState } from "react";
 import { useStore } from "@/Store/Store";
-import { themes, fonts } from "@/Option";
+import { themes, fonts } from "@/data/Option";
 import { cn } from "./lib/utils";
 import { Resizable } from "re-resizable";
 import { CrossCircledIcon } from "@radix-ui/react-icons";
@@ -72,7 +72,6 @@ function App() {
             <div
               className={cn(
                 "relative overflow-hidden transition-all ease-out",
-
                 showBackground
                   ? themes[currentTheme].background
                   : "ring ring-neutral-950/50",

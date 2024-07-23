@@ -8,7 +8,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { TokensIcon } from "@radix-ui/react-icons";
 import { cn } from "@/lib/utils";
-import { themes } from "@/Option";
+import { themes } from "@/data/Option";
 import { useStore } from "@/Store/Store";
 import { useHotkeys } from "react-hotkeys-hook";
 

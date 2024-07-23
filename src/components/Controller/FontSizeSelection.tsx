@@ -7,7 +7,7 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
-import { fontSize } from "@/Option";
+import { fontSize } from "@/data/Option";
 import { useStore } from "@/Store/Store";
 import { useHotkeys } from "react-hotkeys-hook";
 
@@ -22,7 +22,7 @@ const FontSizeSelection = () => {
     useStore.setState({ fontSize: fontSizes[newIndex] });
   }, [currentIndex, fontSizes]);
 
-  useHotkeys('s', traverseFontSize, { preventDefault: true });
+  useHotkeys("s", traverseFontSize, { preventDefault: true });
 
   return (
     <div>

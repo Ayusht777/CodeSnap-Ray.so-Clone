@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { codeSnippets, fonts } from "@/Option";
+import { codeSnippets, fonts } from "@/data/Option";
 import flourite from "flourite";
 import Editor from "react-simple-code-editor";
 import hljs from "highlight.js";

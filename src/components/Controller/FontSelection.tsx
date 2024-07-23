@@ -6,7 +6,7 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
-import { fonts } from "@/Option";
+import { fonts } from "@/data/Option";
 import { useStore } from "@/Store/Store";
 import { useHotkeys } from "react-hotkeys-hook";
 import { useCallback } from "react";

@@ -6,7 +6,7 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
-import { languages } from "@/Option";
+import { languages } from "@/data/Option";
 import { useStore } from "@/Store/Store";
 import { MagicWandIcon } from "@radix-ui/react-icons";
 
